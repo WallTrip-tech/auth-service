@@ -38,19 +38,58 @@ Microservicio de **autenticación y autorización** para la plataforma **WallTri
 ## 🗂️ Estructura del proyecto
 
 ```bash
-auth-service/
- ├─ README.md
- ├─ Package.swift
- ├─ Public/
- ├─ Sources/
- |   ├─ auth-service/
- |   |   ├─ Controllers/
- |   |   ├─ Migrations/
- |   |   ├─ Models/
- |   |   ├─ configure.swift
- |   |   ├─ entrypoint.swift
- |   |   ├─ routes.swift
- ├─ Tests/
- ├─ docker-compose.yml
- ├─ Dockerfile
- └─ Package.resolved
+AuthService/
+├─ Package.swift
+├─ Sources/
+│  └─ App/
+│     ├─ Application/
+│     │  ├─ configure.swift
+│     │  └─ routes.swift
+│     ├─ Interfaces/
+│     │  ├─ Controllers/
+│     │  │  └─ AuthController.swift
+│     │  └─ Middlewares/
+│     │     └─ JWTUserAuthenticator.swift
+│     ├─ Domain/
+│     │  ├─ Entities/
+│     │  │  ├─ User.swift
+│     │  │  └─ RefreshToken.swift
+│     │  ├─ ValueObjects/
+│     │  │  ├─ Email.swift
+│     │  │  └─ HashedPassword.swift
+│     │  ├─ Ports/Repositories/
+│     │  │  ├─ UserRepository.swift
+│     │  │  └─ RefreshTokenRepository.swift
+│     │  ├─ Ports/Services/
+│     │  │  ├─ PasswordHasher.swift
+│     │  │  ├─ JWTService.swift
+│     │  │  ├─ OTPService.swift
+│     │  │  └─ JTIStore.swift
+│     │  └─ UseCases/
+│     │     ├─ RegisterUser.swift
+│     │     ├─ LoginUser.swift
+│     │     ├─ RefreshSession.swift
+│     │     ├─ Logout.swift
+│     │     ├─ EnableMFA.swift
+│     │     └─ VerifyMFA.swift
+│     └─ Infrastructure/            # Adapters
+│        ├─ Persistence/Fluent/
+│        │  ├─ Models/
+│        │  │  ├─ UserDB.swift
+│        │  │  └─ RefreshTokenDB.swift
+│        │  ├─ Repositories/
+│        │  │  ├─ FluentUserRepository.swift
+│        │  │  └─ FluentRefreshTokenRepository.swift
+│        │  └─ Migrations/
+│        │     ├─ CreateUser.swift
+│        │     └─ CreateRefreshToken.swift
+│        ├─ Security/
+│        │  ├─ BCryptPasswordHasher.swift
+│        │  ├─ JWTServiceKit.swift
+│        │  └─ TOTPService.swift
+│        └─ Cache/
+│           └─ RedisJTIStore.swift
+└─ Tests/
+   └─ AppTests/
+      ├─ InMemoryRepos.swift
+      └─ UseCasesTests.swift
