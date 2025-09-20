@@ -72,7 +72,7 @@ AuthService/
 │     │     ├─ Logout.swift
 │     │     ├─ EnableMFA.swift
 │     │     └─ VerifyMFA.swift
-│     └─ Infrastructure/            # Adapters
+│     └─ Infrastructure/
 │        ├─ Persistence/Fluent/
 │        │  ├─ Models/
 │        │  │  ├─ UserDB.swift
